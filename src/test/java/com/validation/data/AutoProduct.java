@@ -1,6 +1,6 @@
 package validateLogin;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,15 +18,16 @@ import java.lang.reflect.Method;
 public class AutoProduct extends BaseTest {
 
     @Test
-    public void enterProductDetails() throws Exception
+    public void enterValidData() throws Exception
     {
-      /*  SelectProduct selectProduct = new SelectProduct(driver);
-        selectProduct.selectProductDetails();
-        PersonalInformaion personalInformaion = new PersonalInformaion(driver);
-        personalInformaion.enterPersonalInformation();*/
-        applicationObject().selectProduct.selectProductDetails();
+        applicationObject().selectProduct.selectProductDetails("01721");
         applicationObject.personalInformaion.enterPersonalInformation();
-        System.out.println("At close : "+ driver);
-        driver.close();
+    }
+
+    @Test
+    public void enterInvalidZip() throws Exception
+    {
+        applicationObject().selectProduct.selectProductDetails("00000");
+        applicationObject.personalInformaion.enterPersonalInformation();
     }
 }
