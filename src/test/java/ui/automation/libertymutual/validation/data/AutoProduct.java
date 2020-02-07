@@ -1,6 +1,6 @@
-package com.validation.data;
+package ui.automation.libertymutual.validation.data;
 
-import com.base.BaseTest;
+import ui.automation.libertymutual.base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
