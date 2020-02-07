@@ -20,11 +20,8 @@ public class BaseTest {
                 try
                 {
 
-                        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\lib\\drivers\\windows\\chromedriver.exe");
+                        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"/lib/drivers/windows/chromedriver.exe");
                         dataset= (ObjectNode) mapper.readTree(new File(System.getProperty("user.dir")+"\\dataset\\production\\prod.json"));
-                        System.out.println("Prod Json: "+ System.getProperty("user.dir")+"\\dataset\\production\\prod.json");
-                        System.out.println("Data set: "+ dataset);
-
                         System.out.println("Chrome browser launched");
                         driver=new ChromeDriver();
                 }
