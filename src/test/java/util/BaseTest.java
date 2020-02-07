@@ -38,7 +38,6 @@ public class BaseTest {
                 return applicationObject;
         }
 
-
         @BeforeMethod(alwaysRun = true)
         public void beforeMethod(Method method) throws Exception {
                 System.out.println("Before method application");
