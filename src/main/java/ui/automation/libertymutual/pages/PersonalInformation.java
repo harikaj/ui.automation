@@ -4,27 +4,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import ui.automation.libertymutual.constants.ApplicationConstants;
+import org.testng.Assert;
 import ui.automation.libertymutual.CommonController;
 import ui.automation.libertymutual.constants.XpathConstants;
 
-public class PersonalInformaion {
+public class PersonalInformation {
     ChromeDriver driver;
 
-    public PersonalInformaion(ChromeDriver driver) {
+    public PersonalInformation(ChromeDriver driver) {
         this.driver = driver;
     }
 
-    public void enterPersonalInformation() {
-        CommonController.waitForElement(driver, XpathConstants.ADDRESS_XPATH, 20);
+    public void enterPersonalInformation(String inputAddress, int inputYearsAtResidence) {
+        CommonController.waitForElement(driver, XpathConstants.ADDRESS_XPATH, 25);
 
         WebElement address = driver.findElement(By.xpath(XpathConstants.ADDRESS_XPATH));
-        address.sendKeys(ApplicationConstants.ADDRESS);
+        Assert.assertTrue(address.isDisplayed(), "Address element appears in the personal info page");
+        address.sendKeys(inputAddress);
 
         Select yearsAtResidence = new Select(driver.findElement(By.xpath(XpathConstants.YEARS_AT_RESIDENCE_XPATH)));
-        yearsAtResidence.selectByIndex(ApplicationConstants.YEARS_AT_RESIDENCE);
+        Assert.assertNotEquals(yearsAtResidence, null, "Years at residence element appears in the personal info page");
+        yearsAtResidence.selectByIndex(inputYearsAtResidence);
 
         WebElement nextButtonElement = driver.findElement(By.xpath(XpathConstants.NEXT_BUTTON_XPATH));
+        Assert.assertTrue(nextButtonElement.isDisplayed(), "Next button element appears in the personal info page");
         nextButtonElement.click();
     }
 }

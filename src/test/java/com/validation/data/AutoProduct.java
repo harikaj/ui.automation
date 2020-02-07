@@ -1,33 +1,32 @@
-package validateLogin;
+package com.validation.data;
 
-import org.testng.annotations.Test;
+import com.base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeMethod;
-import ui.automation.libertymutual.pages.PersonalInformaion;
-import ui.automation.libertymutual.pages.SelectProduct;
-import util.BaseTest;
-
-import java.lang.reflect.Method;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import ui.automation.libertymutual.CommonController;
+import ui.automation.libertymutual.constants.XpathConstants;
 
 public class AutoProduct extends BaseTest {
 
-    @Test
-    public void enterValidData() throws Exception
-    {
-        applicationObject().selectProduct.selectProductDetails("01721");
-        applicationObject.personalInformaion.enterPersonalInformation();
+
+    @Test(priority = 1)
+    public void enterInvalidZip() throws Exception {
+        applicationObject().homePage.clickProduct(dataset.get("valid").get("productType").asText());
+        applicationObject().selectProduct.enterZipCode(dataset.get("invalidZip").get("zipcode").asText());
+        applicationObject().selectProduct.clickGetPriceButton();
+        CommonController.waitForElement(driver, XpathConstants.ZIPCODE_VALIDATION_MESSAGE_XPATH, 15);
+        WebElement zipCodeValidationMessage = driver.findElement(By.xpath(XpathConstants.ZIPCODE_VALIDATION_MESSAGE_XPATH));
+        Assert.assertTrue(zipCodeValidationMessage.isDisplayed(), "Zip code validation message showed up as expected");
     }
 
-    @Test
-    public void enterInvalidZip() throws Exception
-    {
-        applicationObject().selectProduct.selectProductDetails("00000");
-        applicationObject.personalInformaion.enterPersonalInformation();
+    @Test(priority = 2)
+    public void enterValidData() throws Exception {
+        driver.navigate().to(driver.getCurrentUrl());
+        applicationObject().homePage.clickProduct(dataset.get("valid").get("productType").asText());
+        applicationObject().selectProduct.enterZipCode(dataset.get("valid").get("zipcode").asText());
+        applicationObject().selectProduct.clickGetPriceButton();
+        applicationObject().personalInformation.enterPersonalInformation(dataset.get("valid").get("address").asText(), dataset.get("valid").get("yearsAtResidence").asInt());
     }
 }
