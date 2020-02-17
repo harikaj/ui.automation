@@ -25,17 +25,33 @@ public class SelectProduct {
         submitElement.click();
     }
 
-    public void enterZipCode(String zipCode) {
+    public boolean enterZipCode(String zipCode) {
         CommonController.waitForElement(driver, XpathConstants.INPUT_NAME_ZIPCODE, 15);
         WebElement zipCodeElement = driver.findElement(By.xpath(XpathConstants.INPUT_NAME_ZIPCODE));
-        Assert.assertTrue(zipCodeElement.isDisplayed(), "Zip code appears");
-        zipCodeElement.sendKeys(zipCode);
+        if(zipCodeElement.isDisplayed())
+        {
+            zipCodeElement.sendKeys(zipCode);
+            return true;
+        }
+        else{
+            return false;
+
+        }
+
     }
 
-    public void clickGetPriceButton() {
+    public boolean clickGetPriceButton() {
         CommonController.waitForElement(driver, XpathConstants.SUBMIT_XPATH, 15);
         WebElement submitElement = driver.findElement(By.xpath(XpathConstants.SUBMIT_XPATH));
-        Assert.assertTrue(submitElement.isDisplayed(), "Submit button appears");
-        submitElement.click();
+        if(submitElement.isDisplayed())
+        {
+            submitElement.click();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 }

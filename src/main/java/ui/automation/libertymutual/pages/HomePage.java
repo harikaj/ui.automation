@@ -15,13 +15,17 @@ public class HomePage {
         this.driver = driver;
     }
 
-    public void clickProduct(String productType) throws Exception {
-        switch (productType) {
-            case "auto":
-                CommonController.waitForElement(driver, XpathConstants.PRODUCT_AUTO_XPATH, 15);
-                WebElement autoElement = driver.findElement(By.xpath(XpathConstants.PRODUCT_AUTO_XPATH));
-                Assert.assertTrue(autoElement.isDisplayed(), "Auto element appears in the home page");
-                autoElement.click();
+    public boolean clickAuto() throws Exception{
+        CommonController.waitForElement(driver, XpathConstants.PRODUCT_AUTO_XPATH, 15);
+        WebElement autoElement = driver.findElement(By.xpath(XpathConstants.PRODUCT_AUTO_XPATH));
+        if(autoElement.isDisplayed())
+        {
+            autoElement.click();
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
     }

@@ -1,2 +1,2 @@
-com\base\BaseTest.class
-com\validation\data\AutoProduct.class
+ui\automation\libertymutual\base\BaseTest.class
+ui\automation\libertymutual\validation\data\AutoProduct.class

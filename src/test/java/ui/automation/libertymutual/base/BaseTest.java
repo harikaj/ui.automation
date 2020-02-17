@@ -15,19 +15,6 @@ public class BaseTest {
     public static ChromeDriver driver;
     public ApplicationObject applicationObject;
 
-    static {
-        try {
-
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/lib/drivers/windows/chromedriver.exe");
-            dataset = (ObjectNode) mapper.readTree(new File(System.getProperty("user.dir") + "/dataset/" + System.getProperty("env") + ".json"));
-            System.out.println("Chrome browser launched");
-            driver = new ChromeDriver();
-            driver.get(dataset.get("valid").get("url").asText());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public ApplicationObject applicationObject() throws Exception {
         if (this.applicationObject == null) {
             applicationObject = new ApplicationObject(driver);
@@ -35,16 +22,26 @@ public class BaseTest {
         return applicationObject;
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void beforeMethod(Method method) throws Exception {
-        System.out.println("Before method application");
+    @BeforeSuite(alwaysRun = true)
+    public void beforeSuite() throws Exception {
+        try{
+            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/lib/drivers/windows/chromedriver.exe");
+            dataset = (ObjectNode) mapper.readTree(new File(System.getProperty("user.dir") + "/dataset/" + System.getProperty("env") + ".json"));
+            System.out.println("Chrome browser launched");
+            driver = new ChromeDriver();
+            driver.get(dataset.get("valid").get("url").asText());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
 
     }
 
     @AfterSuite(alwaysRun = true)
     public void afterSuite() throws Exception {
         System.out.println("Close application");
-        driver.close();
+        driver.quit();
     }
 
 }

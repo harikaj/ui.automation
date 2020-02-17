@@ -3,7 +3,7 @@
 <suite name="UITests">
     <test name="smoke test"  preserve-order="true">
         <classes>
-            <class name="com.validation.data.AutoProduct"></class>
+            <class name="ui.automation.libertymutual.validation.data.AutoProduct"></class>
         </classes>
     </test>
 </suite>
